@@ -1,0 +1,105 @@
+<script>
+    var Padrao =  "https://apiappagenda.000webhostapp.com/agenda/imagens/jokenPo/padrao.png";        
+    var Pedra =   "https://apiappagenda.000webhostapp.com/agenda/imagens/jokenPo/pedra.png";
+    var Papel =   "https://apiappagenda.000webhostapp.com/agenda/imagens/jokenPo/papel.png";
+    var Tesoura = "https://apiappagenda.000webhostapp.com/agenda/imagens/jokenPo/tesoura.png";        
+    var _imagemApp = Padrao;
+    var _imagemJogador = Padrao;    
+    var _mensagem = "Escolha uma opção abaixo";    
+    var vitoria = 0; 
+    var derrota = 0;
+    var empate = 0;        
+      
+    function intervaloEntreDoisValoresInteiros(min,max){
+        return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+    function placar(resultado){
+        switch(resultado){
+            case 3: vitoria = vitoria +3;
+                break;
+            case 1: derrota = derrota +1;
+                break;
+            case 0: empate = empate + 1;   
+        }
+    //alert(vitoria);
+    //alert(derrota);
+    //alert(empate);        
+    };
+    function opcaoSelecionada(escolhaUsuario){
+
+        var opcoes = ["pedra", "papel", "tesoura"];
+        var numero =  intervaloEntreDoisValoresInteiros(0,2);
+        var escolhaApp = opcoes[numero];      
+        
+        //Exibição da imagem escolhida pelo Jogador
+        switch(escolhaUsuario ){
+            case "pedra" :                
+                _imagemJogador = document.write("<img src ="+Pedra+">");
+                break;
+            case "papel" :           
+                _imagemJogador = document.write("<img src ="+Papel+">");                
+                break;
+            case "tesoura" :           
+                _imagemJogador = document.write("<img src ="+Tesoura+">");                
+                break;
+        }
+        document.write('VS'); 
+        //document.write("<img src ="+Tesoura+">");
+        //Exibição da imagem escolhida pelo App
+        switch( escolhaApp ){
+            case "pedra" :         
+                _imagemApp = document.write("<img src ="+Pedra+">");                                         
+                break;
+            case "papel" :           
+                _imagemApp = document.write("<img src ="+Papel+">");
+                break;
+            case "tesoura" :           
+                _imagemApp = document.write("<img src ="+Tesoura+">");
+                break;
+        }
+        //Validação do ganhador
+        //Usuario Ganhador
+        if(
+            (escolhaUsuario == "pedra" && escolhaApp == "tesoura") ||
+            (escolhaUsuario == "tesoura" && escolhaApp == "papel") ||
+            (escolhaUsuario == "papel" && escolhaApp == "pedra")
+        ){
+            _mensagem = "Parabéns!!! Você ganhou :)";
+            alert(_mensagem);
+            placar(3);
+        //App Ganhador
+        }else if(
+            (escolhaApp == "pedra" && escolhaUsuario == "tesoura") ||
+            (escolhaApp == "tesoura" && escolhaUsuario == "papel") ||
+            (escolhaApp == "papel" && escolhaUsuario == "pedra")
+        ){
+            _mensagem = "Você perdeu :(";
+            alert(_mensagem);
+            placar(1);         
+        //Empate    
+        }else{
+            _mensagem = "Empatamos ;)";
+            alert(_mensagem);
+            placar(0);
+        }
+    
+    }    
+</script>
+<div>
+    <center>
+        <h1 >joken-Po</h1>
+        <h3 >Escolha uma Opção abaixo</h3>
+        <button onclick="opcaoSelecionada('pedra')" >
+            <h2>Pedra</h2>
+            <img src ="https://apiappagenda.000webhostapp.com/agenda/imagens/jokenPo/pedra.png">
+        </button>
+        <button onclick="opcaoSelecionada('papel')" >
+            <h2>Papel</h2>
+            <img src ="https://apiappagenda.000webhostapp.com/agenda/imagens/jokenPo/papel.png">
+        </button>
+        <button onclick="opcaoSelecionada('tesoura')" >
+            <h2>Tesoura</h2>
+            <img src ="https://apiappagenda.000webhostapp.com/agenda/imagens/jokenPo/tesoura.png">
+        </button>
+    </center>
+</div>
